@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Skeleton, VStack, Heading, Box } from '@chakra-ui/react';
+import { Skeleton, VStack, Box } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
@@ -21,10 +21,6 @@ const PopularAnimeList: FC<PopularAnimeListProps> = ({ season, year }) => {
 
   return (
     <VStack alignItems="flex-start" w="full" spacing={6}>
-      <Heading color="white" fontWeight="semibold" fontSize="xl">
-        Popular
-      </Heading>
-
       {/* Slideable banner */}
       <Box position="relative" w="full" overflow="hidden" borderRadius="xl">
         <Carousel

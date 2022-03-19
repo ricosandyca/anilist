@@ -46,15 +46,19 @@ export function isValidSeason(
  * Get season dash year format by the given date
  *
  * @param d - date to conver
+ * @param season - season overriding
  * @returns season dash year (eg. winter-2022)
  */
-export function getSeasonDashYear(d = new Date()): string {
+export function getSeasonDashYear(
+  d = new Date(),
+  defSeason?: MediaSeason,
+): string {
   // get month and year
   const month = d.getMonth();
   const year = d.getFullYear();
 
   // determine season
-  const season = determineAnimeSeasonByMonth(month);
+  const season = defSeason ?? determineAnimeSeasonByMonth(month);
 
   return `${season?.toLowerCase()}-${year}`;
 }

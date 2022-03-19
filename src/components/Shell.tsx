@@ -1,19 +1,78 @@
-import { FC } from 'react';
-import { Box, HStack, Image, Link } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
+import { FC, useCallback } from 'react';
+import {
+  Box,
+  HStack,
+  Icon,
+  Image,
+  Link,
+  Button,
+  Heading,
+} from '@chakra-ui/react';
+import {
+  GiSnowflake1,
+  GiCottonFlower,
+  GiSun,
+  GiFallingLeaf,
+} from 'react-icons/gi';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import anilistLogo from '~/assets/anilist-logo.png';
 import { withContainer } from '~/hoc/with-container';
+import { MediaSeason } from '~/types/anilist-graphql';
+import { getSeasonDashYear } from '~/utils/anime-season';
 
 const TOP_SHELL_HEIGHT = '100px';
+const seasonOrders = [
+  MediaSeason.Winter,
+  MediaSeason.Spring,
+  MediaSeason.Summer,
+  MediaSeason.Fall,
+];
+const mediaSeasonIcon = {
+  [MediaSeason.Winter]: GiSnowflake1,
+  [MediaSeason.Spring]: GiCottonFlower,
+  [MediaSeason.Summer]: GiSun,
+  [MediaSeason.Fall]: GiFallingLeaf,
+};
+const mediaSeasonColor = {
+  [MediaSeason.Winter]: 'cyan',
+  [MediaSeason.Spring]: 'pink',
+  [MediaSeason.Summer]: 'yellow',
+  [MediaSeason.Fall]: 'orange',
+};
 
 const ShellContent: FC = () => {
+  const navigate = useNavigate();
+
+  const onSeasonClick = useCallback((season: MediaSeason) => {
+    navigate(`${getSeasonDashYear(new Date(), season)}`);
+  }, []);
+
   return (
     <HStack h="full">
-      <HStack h="full">
-        <Link as={RouterLink} to="/">
+      {/* App icon */}
+      <Box>
+        <Link _focus={{ boxShadow: 'none' }} as={RouterLink} to="/">
           <Image src={anilistLogo} h="70px" w="auto" />
         </Link>
+      </Box>
+
+      {/* Season selection */}
+      <HStack spacing={2}>
+        {seasonOrders.map((season) => (
+          <Button
+            key={season}
+            variant="ghost"
+            colorScheme={mediaSeasonColor[season]}
+            textTransform="capitalize"
+            leftIcon={<Icon fontSize="lg" as={mediaSeasonIcon[season]} />}
+            onClick={() => onSeasonClick(season)}
+          >
+            <Heading fontWeight="500" fontSize="sm">
+              {season.toLowerCase()}
+            </Heading>
+          </Button>
+        ))}
       </HStack>
     </HStack>
   );
@@ -29,6 +88,7 @@ const Shell: FC = ({ children }) => {
       <Box
         h={TOP_SHELL_HEIGHT}
         w="full"
+        bg="bgAlpha.500"
         borderBottom="1px"
         borderColor="whiteAlpha.300"
         position="fixed"
