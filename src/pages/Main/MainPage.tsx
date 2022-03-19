@@ -1,8 +1,18 @@
-import { FC } from 'react';
-import { Box } from '@chakra-ui/react';
+import { FC, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { getSeasonDashYear } from '~/utils/anime-season';
 
 const MainPage: FC = () => {
-  return <Box>Hello world</Box>;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // auto navigate to current anime season
+    const seasonDashYear = getSeasonDashYear(new Date());
+    navigate(`/${seasonDashYear}`);
+  }, []);
+
+  return null;
 };
 
 export default MainPage;

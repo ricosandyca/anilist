@@ -41,7 +41,7 @@ const Shell: FC = ({ children }) => {
       </Box>
 
       {/* Main content */}
-      <Box mt={`calc(${TOP_SHELL_HEIGHT} + 20px)`}>
+      <Box mt={`calc(${TOP_SHELL_HEIGHT} + 14px)`}>
         <ContainerChildren />
       </Box>
     </Box>
