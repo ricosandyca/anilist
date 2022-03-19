@@ -8,7 +8,8 @@ import {
 export const PAGE_INFO_ATTR = `total perPage currentPage lastPage hasNextPage`;
 export const MEDIA_ATTR = `
   id type popularity coverImage { extraLarge color } bannerImage
-  title { userPreferred } description genres
+  title { userPreferred } description genres startDate { year month day }
+  endDate { year month day }
 `;
 
 export type GetAnimeListPage = {

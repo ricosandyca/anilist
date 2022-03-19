@@ -13,10 +13,12 @@ import {
   Flex,
   useBreakpointValue,
 } from '@chakra-ui/react';
+import { format } from 'date-fns';
 import { AiFillCaretRight } from 'react-icons/ai';
 
 import { Media } from '~/types/anilist-graphql';
 import { getContrastTextColor } from '~/utils/color';
+import { convertFuzzyDateToDate } from '~/utils/date';
 
 export type PopularAnimeBannerProps = BoxProps & {
   media: Media;
@@ -49,6 +51,26 @@ const PopularAnimeBanner: FC<PopularAnimeBannerProps> = ({
       }),
     };
   }, [media.coverImage?.color]);
+
+  const airingDate = useMemo(() => {
+    try {
+      const { startDate, endDate } = media;
+      if (!startDate || !endDate) return undefined;
+
+      const startDateFormat = format(
+        convertFuzzyDateToDate(startDate) ?? new Date(),
+        'MMMM, dd yyyy',
+      );
+      const endDateFormat = format(
+        convertFuzzyDateToDate(endDate) ?? new Date(),
+        'MMMM, dd yyyy',
+      );
+
+      return `${startDateFormat} - ${endDateFormat}`;
+    } catch (err) {
+      return undefined;
+    }
+  }, [media.startDate, media.endDate]);
 
   return (
     <Box
@@ -106,6 +128,13 @@ const PopularAnimeBanner: FC<PopularAnimeBannerProps> = ({
           <Heading fontSize="4xl" noOfLines={2}>
             {media.title?.userPreferred}
           </Heading>
+
+          {/* Media airing info */}
+          {airingDate && (
+            <Text fontSize="sm" color="whiteAlpha.700">
+              {airingDate}
+            </Text>
+          )}
 
           {/* Media description */}
           {normalizedDescription && (
