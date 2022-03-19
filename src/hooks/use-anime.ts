@@ -26,6 +26,7 @@ export function useAnime(mediaId: number) {
   }, [mediaId]);
 
   useEffect(() => {
+    // show a toast on request error
     if (error)
       toast({
         status: 'error',

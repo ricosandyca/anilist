@@ -21,8 +21,13 @@ import '@fontsource/poppins/900.css';
 // in rgb format
 const bgColor = '13, 14, 34';
 const bgAlpha = {
+  50: `rgba(${bgColor}, 0.05)`,
+  100: `rgba(${bgColor}, 0.1)`,
+  200: `rgba(${bgColor}, 0.2)`,
   300: `rgba(${bgColor}, 0.3)`,
+  400: `rgba(${bgColor}, 0.4)`,
   500: `rgba(${bgColor}, 0.5)`,
+  600: `rgba(${bgColor}, 0.6)`,
   700: `rgba(${bgColor}, 0.7)`,
   800: `rgba(${bgColor}, 0.8)`,
   900: `rgba(${bgColor}, 0.9)`,

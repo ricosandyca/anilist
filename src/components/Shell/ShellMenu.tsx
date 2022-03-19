@@ -45,7 +45,7 @@ export const ShellMenu: FC = () => {
           leftIcon={<Icon fontSize="lg" as={s.icon} />}
           onClick={() => navigate(s.path)}
         >
-          <Heading fontWeight="500" fontSize="sm">
+          <Heading fontWeight="500" fontSize="sm" pl={1}>
             {s.text}
           </Heading>
         </Button>

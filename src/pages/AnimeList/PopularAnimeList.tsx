@@ -57,7 +57,6 @@ const PopularAnimeList: FC<PopularAnimeListProps> = ({ season, year }) => {
 const PopularAnimeListLoading: FC = () => {
   return (
     <VStack spacing={6} w="full" alignItems="flex-start">
-      <Skeleton w="200px" h="30px" />
       <Skeleton w="full" h={BANNER_HEIGHT} />
     </VStack>
   );
