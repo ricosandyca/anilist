@@ -1,6 +1,6 @@
 import { RouteObject, useRoutes } from 'react-router-dom';
 
-import { withContainer } from '~/hoc/with-container';
+import { withShell } from '~/hoc/with-shell';
 import MainPage from '~/pages/Main';
 import NotFoundPage from '~/pages/NotFound';
 
@@ -21,4 +21,4 @@ function Routes() {
   return element;
 }
 
-export default withContainer(Routes);
+export default withShell(Routes);
