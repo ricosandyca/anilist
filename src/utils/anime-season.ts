@@ -1,16 +1,11 @@
-export enum AnimeSeason {
-  WINTER = 'winter',
-  SPRING = 'spring',
-  SUMMER = 'summer',
-  FALL = 'fall',
-}
+import { MediaSeason } from '~/types/anilist-graphql';
 
 // month count starts at 0 = january
 export const animeSeasonRangeInMonth = {
-  [AnimeSeason.WINTER]: [0, 1, 2],
-  [AnimeSeason.SPRING]: [3, 4, 5],
-  [AnimeSeason.SUMMER]: [6, 7, 8],
-  [AnimeSeason.FALL]: [9, 10, 11],
+  [MediaSeason.Winter]: [0, 1, 2],
+  [MediaSeason.Spring]: [3, 4, 5],
+  [MediaSeason.Summer]: [6, 7, 8],
+  [MediaSeason.Fall]: [9, 10, 11],
 };
 
 /**
@@ -22,9 +17,9 @@ export const animeSeasonRangeInMonth = {
  */
 export function determineAnimeSeasonByMonth(
   month: number,
-): AnimeSeason | undefined {
+): MediaSeason | undefined {
   for (const [season, months] of Object.entries(animeSeasonRangeInMonth))
-    if (months.includes(month)) return season as AnimeSeason;
+    if (months.includes(month)) return season as MediaSeason;
   return undefined;
 }
 
@@ -39,7 +34,7 @@ export function isValidSeason(
   season: string,
   useSensitiveCase = false,
 ): boolean {
-  let validSeasons = Object.keys(AnimeSeason);
+  let validSeasons = Object.keys(MediaSeason);
   if (!useSensitiveCase) {
     validSeasons = validSeasons.map((s) => s.toUpperCase());
     season = season.toUpperCase();
@@ -61,7 +56,7 @@ export function getSeasonDashYear(d = new Date()): string {
   // determine season
   const season = determineAnimeSeasonByMonth(month);
 
-  return `${season}-${year}`;
+  return `${season?.toLowerCase()}-${year}`;
 }
 
 /**
@@ -72,7 +67,7 @@ export function getSeasonDashYear(d = new Date()): string {
  */
 export function extractSeasonDashYear(seasonDashYear: string) {
   const seasonDashYearArr = (seasonDashYear || '').split('-');
-  const season = seasonDashYearArr[0];
+  const season = seasonDashYearArr[0].toUpperCase() as MediaSeason;
   const year = +seasonDashYearArr[1];
 
   if (!season || !year) return undefined;

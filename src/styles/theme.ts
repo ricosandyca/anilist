@@ -8,6 +8,15 @@ import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 import '@fontsource/inter/800.css';
 import '@fontsource/inter/900.css';
+import '@fontsource/poppins/100.css';
+import '@fontsource/poppins/200.css';
+import '@fontsource/poppins/300.css';
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource/poppins/800.css';
+import '@fontsource/poppins/900.css';
 
 // in rgb format
 const bgColor = '13, 14, 34';
@@ -15,21 +24,9 @@ const bgAlpha = {
   300: `rgba(${bgColor}, 0.3)`,
   500: `rgba(${bgColor}, 0.5)`,
   700: `rgba(${bgColor}, 0.7)`,
+  800: `rgba(${bgColor}, 0.8)`,
+  900: `rgba(${bgColor}, 0.9)`,
   1000: `rgba(${bgColor}, 1)`,
-};
-
-// purple colors
-const primary = {
-  300: '#B794F4',
-  500: '#805AD5',
-  700: '#553C9A',
-};
-
-// pink colors
-const secondary = {
-  300: '#F687B3',
-  500: '#D53F8C',
-  700: '#97266D',
 };
 
 export default extendTheme({
@@ -44,10 +41,10 @@ export default extendTheme({
     }),
   },
   fonts: {
-    heading: "Inter, 'sans-serif'",
+    heading: "Poppins, 'sans-serif'",
     body: "Inter, 'sans-serif'",
   },
-  colors: { primary, secondary, bgAlpha },
+  colors: { bgAlpha },
   semanticTokens: {
     colors: {
       bg: 'bgAlpha.1000',
