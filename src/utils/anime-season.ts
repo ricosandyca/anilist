@@ -8,6 +8,14 @@ export const animeSeasonRangeInMonth = {
   [MediaSeason.Fall]: [9, 10, 11],
 };
 
+// season list order by month
+export const seasonOrders = [
+  MediaSeason.Winter,
+  MediaSeason.Spring,
+  MediaSeason.Summer,
+  MediaSeason.Fall,
+];
+
 /**
  * Determine which season by the given month
  * month starts at 0 (january)
