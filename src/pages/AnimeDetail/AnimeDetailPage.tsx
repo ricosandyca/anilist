@@ -2,16 +2,17 @@ import { FC } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAnime } from '~/hooks/use-anime';
+import NotFoundPage from '~/pages/NotFound';
 
 const AnimeDetailPage: FC = () => {
   const { mediaId } = useParams();
-  const { anime, isLoading, error } = useAnime(+(mediaId ?? ''));
+  const { anime, isLoading } = useAnime(+(mediaId ?? ''));
 
-  console.log(anime, isLoading, error);
+  console.log(anime, isLoading);
 
-  if (error) return null;
+  if (!isLoading && !anime) return <NotFoundPage />;
 
-  return null;
+  return <div>{anime?.title?.userPreferred}</div>;
 };
 
 export default AnimeDetailPage;
