@@ -56,3 +56,16 @@ export const GET_ANIME_LIST = (
     },
   };
 };
+
+export const GET_ANIME = (mediaId: number) => {
+  return {
+    query: `
+      query getAnime($mediaId: Int!) {
+        Media (id: $mediaId) {
+          ${MEDIA_ATTR}
+        }
+      }
+    `,
+    variables: { mediaId },
+  };
+};

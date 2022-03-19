@@ -49,7 +49,7 @@ const ShellContent: FC = () => {
   }, []);
 
   return (
-    <HStack h="full">
+    <HStack h="full" justify="space-between">
       {/* App icon */}
       <Box>
         <Link _focus={{ boxShadow: 'none' }} as={RouterLink} to="/">

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import appConfig from '~/config/app';
-import { GET_ANIME_LIST } from '~/services/graphql/anilist';
+import { GET_ANIME_LIST, GET_ANIME } from '~/services/graphql/anilist';
 import {
   MediaSeason,
   MediaType,
@@ -31,4 +31,11 @@ export async function getPopularAnimeList(
 
   if (res.data.errors) throw res.data.errors[0];
   return res.data.data.Page.media as Media[];
+}
+
+export async function getAnime(mediaId: number) {
+  const res = await axios.post(GQL_ENDPOINT, GET_ANIME(mediaId));
+
+  if (res.data.errors) throw res.data.errors[0];
+  return res.data.data.Media as Media;
 }

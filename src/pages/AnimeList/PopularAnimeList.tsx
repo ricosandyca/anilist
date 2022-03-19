@@ -15,10 +15,14 @@ export type PopularAnimeListProps = {
 const BANNER_HEIGHT = '540px';
 
 const PopularAnimeList: FC<PopularAnimeListProps> = ({ season, year }) => {
-  const { isLoading, popularAnimes } = usePopularAnimeList(season, year, 5);
+  const { isLoading, popularAnimes, error } = usePopularAnimeList(
+    season,
+    year,
+    5,
+  );
 
   if (isLoading) return <PopularAnimeListLoading />;
-
+  if (error) return null;
   return (
     <VStack alignItems="flex-start" w="full" spacing={6}>
       {/* Slideable banner */}
