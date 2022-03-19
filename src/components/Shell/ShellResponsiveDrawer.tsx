@@ -94,8 +94,9 @@ const ShellResponsiveDrawerContent: FC<ShellResponsiveDrawerContentProps> = ({
                 isFullWidth
                 size="lg"
                 justifyContent="flex-start"
+                px={4}
               >
-                <Heading fontWeight="500" fontSize="md" pl={4}>
+                <Heading fontWeight="500" fontSize="md" pl={2}>
                   {s.text}
                 </Heading>
               </Button>
