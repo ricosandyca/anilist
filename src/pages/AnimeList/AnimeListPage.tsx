@@ -2,6 +2,7 @@ import { FC, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
 import AnimeListContent from './AnimeListContent';
+import { withContainer } from '~/hoc/with-container';
 import NotFoundPage from '~/pages/NotFound';
 import { extractSeasonDashYear } from '~/utils/anime-season';
 
@@ -19,4 +20,4 @@ const AnimeListPage: FC = () => {
   );
 };
 
-export default AnimeListPage;
+export default withContainer(AnimeListPage, true);

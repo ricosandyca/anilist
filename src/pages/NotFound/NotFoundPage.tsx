@@ -8,6 +8,7 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react';
 import { RiEmotionSadFill } from 'react-icons/ri';
+import { withContainer } from '~/hoc/with-container';
 
 const NotFoundPage: FC = () => {
   // responsive breakpoints
@@ -18,7 +19,7 @@ const NotFoundPage: FC = () => {
     <Flex
       position="relative"
       w="full"
-      h={`calc(100vh - 230px)`}
+      h={`calc(100vh - 210px)`}
       alignItems="center"
       justifyContent="center"
       color="whiteAlpha.800"
@@ -47,4 +48,4 @@ const NotFoundPage: FC = () => {
   );
 };
 
-export default NotFoundPage;
+export default withContainer(NotFoundPage, true);

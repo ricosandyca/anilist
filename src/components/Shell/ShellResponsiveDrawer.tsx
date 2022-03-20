@@ -81,7 +81,7 @@ const ShellResponsiveDrawerContent: FC<ShellResponsiveDrawerContentProps> = ({
         <DrawerHeader>
           <HStack justify="space-between">
             <Link _focus={{ boxShadow: 'none' }} as={RouterLink} to="/">
-              <Image src={anilistLogo} h="60px" w="auto" />
+              <Image src={anilistLogo} h="50px" w="auto" />
             </Link>
             <IconButton
               aria-label="Hamburger icon"

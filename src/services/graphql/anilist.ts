@@ -11,6 +11,11 @@ export const MEDIA_ATTR = `
   title { userPreferred } description genres startDate { year month day }
   endDate { year month day }
 `;
+export const MEDIA_DETAIL_ATTR = `
+  id type popularity coverImage { extraLarge color } bannerImage
+  title { userPreferred } description genres startDate { year month day }
+  endDate { year month day } status siteUrl
+`;
 
 export type GetAnimeListPage = {
   page?: number;
@@ -62,7 +67,7 @@ export const GET_ANIME = (mediaId: number) => {
     query: `
       query getAnime($mediaId: Int!) {
         Media (id: $mediaId) {
-          ${MEDIA_ATTR}
+          ${MEDIA_DETAIL_ATTR}
         }
       }
     `,

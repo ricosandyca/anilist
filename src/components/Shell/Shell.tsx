@@ -8,11 +8,10 @@ import ShellMenu from './ShellMenu';
 import ShellResponsiveDrawer from './ShellResponsiveDrawer';
 import Footer from '../Footer';
 
-const TOP_SHELL_HEIGHT = '100px';
+export const TOP_SHELL_HEIGHT = '100px';
 
 const Shell: FC = ({ children }) => {
   const ContainerShellContent = withContainer(ShellContent);
-  const ContainerChildren = withContainer(() => <>{children}</>);
 
   return (
     <Box position="relative">
@@ -32,8 +31,8 @@ const Shell: FC = ({ children }) => {
       </Box>
 
       {/* Main content */}
-      <Box mt={`calc(${TOP_SHELL_HEIGHT} + 20px)`}>
-        <ContainerChildren />
+      <Box>
+        {children}
         <Footer />
       </Box>
     </Box>
@@ -48,7 +47,7 @@ const ShellContent: FC = () => {
       {/* App icon */}
       <Box>
         <Link _focus={{ boxShadow: 'none' }} as={RouterLink} to="/">
-          <Image src={anilistLogo} h="70px" w="auto" />
+          <Image src={anilistLogo} h="60px" w="auto" />
         </Link>
       </Box>
 
