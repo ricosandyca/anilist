@@ -81,4 +81,22 @@ export default extendTheme({
       secondary: 'secondary.500',
     },
   },
+  components: {
+    Button: {
+      baseStyle: () => ({
+        _focus: {
+          boxShadow: 'none',
+        },
+      }),
+    },
+    Tabs: {
+      baseStyle: () => ({
+        tab: {
+          _focus: {
+            boxShadow: 'none',
+          },
+        },
+      }),
+    },
+  },
 });

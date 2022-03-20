@@ -83,7 +83,7 @@ const AnimeCard: FC<AnimeCardProps> = ({ media, ...boxProps }) => {
         to={`/media/${media.id}`}
         textDecor="none !important"
       >
-        {/* Absolute madia cover as the card bg */}
+        {/* Absolute media cover as the card bg */}
         <Box
           className="img-cover"
           transitionDuration=".3s"

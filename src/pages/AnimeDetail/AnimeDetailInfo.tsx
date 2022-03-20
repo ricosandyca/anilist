@@ -44,7 +44,7 @@ const AnimeDetailContent: FC<AnimeDetailInfoProps> = ({ media }) => {
       <MainStack
         align={isMDDown ? 'center' : 'flex-start'}
         position="relative"
-        top="-200px"
+        top="-100px"
         spacing={isMDDown ? 10 : 8}
       >
         {/* Left content */}

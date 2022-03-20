@@ -14,7 +14,12 @@ export const MEDIA_ATTR = `
 export const MEDIA_DETAIL_ATTR = `
   id type popularity coverImage { extraLarge color } bannerImage
   title { userPreferred } description genres startDate { year month day }
-  endDate { year month day } status siteUrl
+  endDate { year month day } status siteUrl characters (sort: ROLE) {
+    edges {
+      id name role
+      node { id name { userPreferred } image { large } }
+    }
+  }
 `;
 
 export type GetAnimeListPage = {
