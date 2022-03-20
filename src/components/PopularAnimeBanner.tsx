@@ -1,4 +1,4 @@
-import { FC, memo, useMemo, useCallback } from 'react';
+import { FC, memo, useMemo } from 'react';
 import {
   BoxProps,
   Box,
@@ -11,11 +11,12 @@ import {
   Icon,
   Badge,
   Flex,
+  Link,
   useBreakpointValue,
 } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { AiFillCaretRight } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { Media } from '~/types/anilist-graphql';
 import { getContrastTextColor } from '~/utils/color';
@@ -29,7 +30,6 @@ const PopularAnimeBanner: FC<PopularAnimeBannerProps> = ({
   media,
   ...boxProps
 }) => {
-  const navigate = useNavigate();
   const isMDDown = useBreakpointValue({ base: true, lg: false });
 
   const normalizedDescription = useMemo(() => {
@@ -73,10 +73,6 @@ const PopularAnimeBanner: FC<PopularAnimeBannerProps> = ({
       return undefined;
     }
   }, [media.startDate, media.endDate]);
-
-  const onDetailClick = useCallback(() => {
-    navigate(`/media/${media.id}`);
-  }, [media.id]);
 
   return (
     <Box
@@ -162,16 +158,21 @@ const PopularAnimeBanner: FC<PopularAnimeBannerProps> = ({
 
           {/* Media view button */}
           <Box py={4}>
-            <Button
-              rightIcon={<Icon as={AiFillCaretRight} />}
-              variant="outline"
-              colorScheme="purple"
-              color={accent.bg}
-              borderColor={accent.bg}
-              onClick={onDetailClick}
+            <Link
+              as={RouterLink}
+              to={`/media/${media.id}`}
+              textDecor="none !important"
             >
-              View
-            </Button>
+              <Button
+                rightIcon={<Icon as={AiFillCaretRight} />}
+                variant="outline"
+                colorScheme="purple"
+                color={accent.bg}
+                borderColor={accent.bg}
+              >
+                View
+              </Button>
+            </Link>
           </Box>
         </VStack>
       </HStack>

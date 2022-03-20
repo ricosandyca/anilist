@@ -43,6 +43,18 @@ export default extendTheme({
         color: 'white',
         bg: 'bgAlpha.1000',
       },
+      '::-webkit-scrollbar': {
+        w: '10px',
+        h: '10px',
+        bg: 'transparent',
+      },
+      '::-webkit-scrollbar-thumb ': {
+        borderRadius: '100px',
+        bg: 'purple.300',
+        '&:hover': {
+          bg: 'purple.400',
+        },
+      },
     }),
   },
   fonts: {

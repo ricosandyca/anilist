@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   IconButton,
   Icon,
@@ -22,7 +22,20 @@ import { seasonSelections } from './ShellMenu';
 import anilistLogo from '~/assets/anilist-logo.png';
 
 const ShellResponsiveDrawer: FC = () => {
+  const [renderDrawer, setRenderDrawer] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // optimize drawer render
+  // without lossing the sliding effect
+  // on drawer open, immediately render the drawer
+  // on drawer close, delay 100ms before removing it from the DOM
+  useEffect(() => {
+    if (isOpen) setRenderDrawer(true);
+    else
+      setTimeout(() => {
+        setRenderDrawer(false);
+      }, 100);
+  }, [isOpen]);
 
   return (
     <>
@@ -32,7 +45,9 @@ const ShellResponsiveDrawer: FC = () => {
         icon={<Icon fontSize="xl" as={RiMenu3Fill} />}
         onClick={onOpen}
       />
-      <ShellResponsiveDrawerContent isOpen={isOpen} onClose={onClose} />
+      {renderDrawer && (
+        <ShellResponsiveDrawerContent isOpen={isOpen} onClose={onClose} />
+      )}
     </>
   );
 };
