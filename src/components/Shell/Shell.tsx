@@ -6,6 +6,7 @@ import anilistLogo from '~/assets/anilist-logo.png';
 import { withContainer } from '~/hoc/with-container';
 import ShellMenu from './ShellMenu';
 import ShellResponsiveDrawer from './ShellResponsiveDrawer';
+import Footer from '../Footer';
 
 const TOP_SHELL_HEIGHT = '100px';
 
@@ -33,6 +34,7 @@ const Shell: FC = ({ children }) => {
       {/* Main content */}
       <Box mt={`calc(${TOP_SHELL_HEIGHT} + 20px)`}>
         <ContainerChildren />
+        <Footer />
       </Box>
     </Box>
   );

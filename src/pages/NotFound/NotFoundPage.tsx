@@ -18,7 +18,7 @@ const NotFoundPage: FC = () => {
     <Flex
       position="relative"
       w="full"
-      h={`calc(100vh - 300px)`}
+      h={`calc(100vh - 230px)`}
       alignItems="center"
       justifyContent="center"
       color="whiteAlpha.800"
