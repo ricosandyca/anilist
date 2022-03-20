@@ -64,6 +64,7 @@ const AnimeCharacterCard: FC<AnimeCharacterCardProps> = ({
               textAlign="center"
               fontSize="xs"
               fontWeight="500"
+              noOfLines={2}
             >
               {char?.name?.userPreferred}
             </Heading>
