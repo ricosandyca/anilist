@@ -1,5 +1,12 @@
 import { FC, memo, useCallback, useMemo } from 'react';
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  useBreakpointValue,
+} from '@chakra-ui/react';
 
 import AnimeDetailCharacters from './AnimeDetailCharacters';
 import AnimeDetailEpisodes from './AnimeDetailEpisodes';
@@ -25,6 +32,7 @@ const tabs = [
 ];
 
 const AnimeDetailTabs: FC = () => {
+  const isMDDown = useBreakpointValue({ base: true, lg: false });
   const [activeTab, setActiveTab] = useQueryState('tab', tabs[0].id);
 
   const activeTabIndex = useMemo(() => {
@@ -46,7 +54,7 @@ const AnimeDetailTabs: FC = () => {
       colorScheme="purple"
       isLazy
     >
-      <TabList>
+      <TabList maxW="full" justifyContent={isMDDown ? 'center' : 'flex-start'}>
         {tabs.map((tab) => (
           <Tab key={tab.id}>{tab.title}</Tab>
         ))}

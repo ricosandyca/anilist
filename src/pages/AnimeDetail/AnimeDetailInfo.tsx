@@ -10,6 +10,7 @@ import {
   Icon,
   Button,
   Link,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { AiFillHeart } from 'react-icons/ai';
 import { BiLinkExternal } from 'react-icons/bi';
@@ -25,6 +26,8 @@ export type AnimeDetailInfoProps = {
 };
 
 const AnimeDetailContent: FC<AnimeDetailInfoProps> = ({ media }) => {
+  const isMDDown = useBreakpointValue({ base: true, lg: false });
+
   const normalizedDescription = useMemo(() => {
     if (!media.description) return null;
     return normalizeHTML(media.description);
@@ -34,16 +37,22 @@ const AnimeDetailContent: FC<AnimeDetailInfoProps> = ({ media }) => {
     return formatNumber(media.popularity ?? 0, 1);
   }, [media.popularity]);
 
+  const MainStack = isMDDown ? VStack : HStack;
+
   return (
     <Box>
-      <HStack align="flex-start" position="relative" top="-200px" spacing={8}>
+      <MainStack
+        align={isMDDown ? 'center' : 'flex-start'}
+        position="relative"
+        top="-200px"
+        spacing={isMDDown ? 10 : 8}
+      >
+        {/* Left content */}
         <VStack w="240px" flexShrink={0} spacing={4}>
-          {/* Left content */}
           <Image
             src={media.coverImage?.extraLarge ?? undefined}
             w="full"
             h="auto"
-            bg="red"
             borderRadius="lg"
           />
 
@@ -70,15 +79,15 @@ const AnimeDetailContent: FC<AnimeDetailInfoProps> = ({ media }) => {
           </HStack>
         </VStack>
 
-        {/* Rightft content */}
-        <VStack align="flex-start" spacing={4}>
+        {/* Right content */}
+        <VStack align="flex-start" spacing={4} w="full">
           <Heading>{media.title?.userPreferred}</Heading>
           <Badge>{media.status}</Badge>
           <Text color="whiteAlpha.700">{normalizedDescription}</Text>
           {/* Anime detail tabs */}
           <AnimeDetailTabs />
         </VStack>
-      </HStack>
+      </MainStack>
     </Box>
   );
 };
