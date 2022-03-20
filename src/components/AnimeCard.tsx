@@ -16,12 +16,18 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Media } from '~/types/anilist-graphql';
 import { getContrastTextColor } from '~/utils/color';
 import { formatNumber } from '~/utils/number';
+import { normalizeHTML } from '~/utils/html';
 
 export type AnimeCardProps = BoxProps & {
   media: Media;
 };
 
 const AnimeCard: FC<AnimeCardProps> = ({ media, ...boxProps }) => {
+  const normalizedDescription = useMemo(() => {
+    if (!media.description) return null;
+    return normalizeHTML(media.description);
+  }, [media.description]);
+
   const accent = useMemo(() => {
     const imageAccent = media.coverImage?.color;
     if (!imageAccent)
@@ -63,6 +69,12 @@ const AnimeCard: FC<AnimeCardProps> = ({ media, ...boxProps }) => {
           transform: 'scale(1.25)',
           opacity: 0.5,
         },
+        '.media-desc': {
+          display: 'block',
+        },
+        '.media-content-box': {
+          h: '186px',
+        },
       }}
       {...boxProps}
     >
@@ -84,30 +96,58 @@ const AnimeCard: FC<AnimeCardProps> = ({ media, ...boxProps }) => {
           bgSize="cover"
           h="full"
           w="full"
+          zIndex={1}
         />
 
         {/* Media info */}
-        <Flex h="full" flexDir="column" justify="flex-end">
-          <Box bg="bgAlpha.600" backdropFilter="blur(15px) saturate(2)" p={4}>
-            <HStack>
-              {/* Left info (title, genres) */}
-              <VStack flex={1} align="flex-start" spacing={1}>
-                <Heading fontSize="sm" fontWeight="500" noOfLines={1}>
-                  {media.title?.userPreferred}
-                </Heading>
-                <Text fontSize="xs" noOfLines={1} color="whiteAlpha.700">
-                  {genresStr}
-                </Text>
-              </VStack>
+        <Flex
+          h="full"
+          flexDir="column"
+          justify="flex-end"
+          position="relative"
+          zIndex={2}
+        >
+          <Box
+            className="media-content-box"
+            bg="bgAlpha.600"
+            backdropFilter="blur(15px) saturate(2)"
+            p={4}
+            h="66px"
+            transitionDuration=".3s"
+          >
+            <VStack spacing={3} align="flex-start">
+              <HStack w="full">
+                {/* Left info (title, genres) */}
+                <VStack flex={1} align="flex-start" spacing={1}>
+                  <Heading fontSize="sm" fontWeight="500" noOfLines={1}>
+                    {media.title?.userPreferred}
+                  </Heading>
+                  <Text fontSize="xs" noOfLines={1} color="whiteAlpha.700">
+                    {genresStr}
+                  </Text>
+                </VStack>
 
-              {/* Right info (popularity) */}
-              <VStack spacing={1}>
-                <Icon as={AiFillHeart} color={accent.bg} />
-                <Text fontSize="x-small" noOfLines={1}>
-                  {popularityFmt}
+                {/* Right info (popularity) */}
+                <VStack spacing={1}>
+                  <Icon as={AiFillHeart} color={accent.bg} />
+                  <Text fontSize="x-small" noOfLines={1}>
+                    {popularityFmt}
+                  </Text>
+                </VStack>
+              </HStack>
+
+              {/* Hideable media description */}
+              <Box
+                className="media-desc small-content-scroll"
+                display="none"
+                maxH="100px"
+                overflowY="auto"
+              >
+                <Text fontSize="xs" color="whiteAlpha.800">
+                  {normalizedDescription}
                 </Text>
-              </VStack>
-            </HStack>
+              </Box>
+            </VStack>
           </Box>
         </Flex>
       </Link>

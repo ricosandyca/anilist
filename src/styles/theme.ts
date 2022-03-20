@@ -48,11 +48,23 @@ export default extendTheme({
         h: '10px',
         bg: 'transparent',
       },
-      '::-webkit-scrollbar-thumb ': {
+      '::-webkit-scrollbar-thumb': {
         borderRadius: '100px',
         bg: 'purple.300',
         '&:hover': {
           bg: 'purple.400',
+        },
+      },
+      '.small-content-scroll::-webkit-scrollbar': {
+        w: '4px',
+        h: '4px',
+        bg: 'transparent',
+      },
+      '.small-content-scroll::-webkit-scrollbar-thumb': {
+        borderRadius: '100px',
+        bg: 'whiteAlpha.300',
+        '&:hover': {
+          bg: 'whiteAlpha.400',
         },
       },
     }),

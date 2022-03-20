@@ -21,6 +21,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Media } from '~/types/anilist-graphql';
 import { getContrastTextColor } from '~/utils/color';
 import { convertFuzzyDateToDate } from '~/utils/date';
+import { normalizeHTML } from '~/utils/html';
 
 export type PopularAnimeBannerProps = BoxProps & {
   media: Media;
@@ -34,7 +35,7 @@ const PopularAnimeBanner: FC<PopularAnimeBannerProps> = ({
 
   const normalizedDescription = useMemo(() => {
     if (!media.description) return null;
-    return media.description.replace(/<\/?[^>]+(>|$)/g, '');
+    return normalizeHTML(media.description);
   }, [media.description]);
 
   const accent = useMemo(() => {

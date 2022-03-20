@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import {
+  Box,
   HStack,
   Skeleton,
   StackProps,
@@ -41,13 +42,14 @@ const FormatAnimeList: FC<FormatAnimeListProps> = ({
   return (
     <HStack as={ScrollContainer} spacing={spacing} maxWidth="full">
       {animes.map((media) => (
-        <AnimeCard
-          key={media.id}
-          media={media}
-          flexShrink={0}
-          h={CARD_HEIGHT}
-          w={CARD_WIDTH}
-        />
+        <Box key={media.id}>
+          <AnimeCard
+            media={media}
+            flexShrink={0}
+            h={CARD_HEIGHT}
+            w={CARD_WIDTH}
+          />
+        </Box>
       ))}
     </HStack>
   );
