@@ -18,7 +18,7 @@ const formatsToShow = [
 
 const AnimeListContent: FC<AnimeListContentProps> = ({ season, year }) => {
   return (
-    <VStack align="flex-start" spacing={12} pb={12}>
+    <VStack align="flex-start" spacing={12} pb={16}>
       {/* Popular anime banner */}
       <PopularAnimeList season={season} year={year} />
 

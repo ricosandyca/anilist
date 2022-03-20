@@ -22,6 +22,11 @@ export function useAnimeList(
   const [error, setError] = useState<string | null>(null);
   const [animes, setAnimes] = useRecoilState(animeListState(format));
 
+  // show loading on page changed
+  useEffect(() => {
+    setIsLoading(true);
+  }, [season, year, format]);
+
   useEffect(() => {
     // get popular anime
     (async () => {

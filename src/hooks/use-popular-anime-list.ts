@@ -18,6 +18,11 @@ export function usePopularAnimeList(
     popularAnimeListState,
   );
 
+  // show loading on page changed
+  useEffect(() => {
+    setIsLoading(true);
+  }, [season, year]);
+
   useEffect(() => {
     // get popular anime
     (async () => {

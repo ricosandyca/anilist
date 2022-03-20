@@ -50,9 +50,9 @@ export default extendTheme({
       },
       '::-webkit-scrollbar-thumb': {
         borderRadius: '100px',
-        bg: 'purple.300',
+        bg: 'purple.800',
         '&:hover': {
-          bg: 'purple.400',
+          bg: 'purple.900',
         },
       },
       '.small-content-scroll::-webkit-scrollbar': {
