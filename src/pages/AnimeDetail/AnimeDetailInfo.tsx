@@ -97,7 +97,7 @@ const AnimeDetailContent: FC<AnimeDetailInfoProps> = ({ media }) => {
           <Text color="whiteAlpha.700">{normalizedDescription}</Text>
 
           {/* Anime detail tabs */}
-          <AnimeDetailTabs />
+          <AnimeDetailTabs media={media} />
         </VStack>
       </MainStack>
     </Box>

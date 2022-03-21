@@ -25,6 +25,7 @@ export const MEDIA_DETAIL_ATTR = `
     id type status title { userPreferred } coverImage { large color }
     startDate { year month day } endDate { year month day }
   } } }
+  streamingEpisodes { title thumbnail url }
 `;
 
 export type GetAnimeListPage = {

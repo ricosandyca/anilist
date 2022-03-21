@@ -12,28 +12,38 @@ import AnimeDetailCharacters from './AnimeDetailCharacters';
 import AnimeDetailEpisodes from './AnimeDetailEpisodes';
 import AnimeDetailRelations from './AnimeDetailRelations';
 import { useQueryState } from '~/hooks/use-query-state';
+import { Media } from '~/types/anilist-graphql';
 
-const tabs = [
-  {
-    id: 'characters',
-    title: 'Characters',
-    element: <AnimeDetailCharacters />,
-  },
-  {
-    id: 'relations',
-    title: 'Relations',
-    element: <AnimeDetailRelations />,
-  },
-  {
-    id: 'streaming-episodes',
-    title: 'Episodes',
-    element: <AnimeDetailEpisodes />,
-  },
-];
+export type AnimeDetailTabsProps = {
+  media: Media;
+};
 
-const AnimeDetailTabs: FC = () => {
+const AnimeDetailTabs: FC<AnimeDetailTabsProps> = ({ media }) => {
   const isMDDown = useBreakpointValue({ base: true, lg: false });
-  const [activeTab, setActiveTab] = useQueryState('tab', tabs[0].id);
+  const [activeTab, setActiveTab] = useQueryState<string>('tab', '');
+
+  const tabs = useMemo(() => {
+    return [
+      {
+        id: 'relations',
+        title: 'Relations',
+        element: <AnimeDetailRelations />,
+        show: (media.relations?.edges || []).length > 0,
+      },
+      {
+        id: 'characters',
+        title: 'Characters',
+        element: <AnimeDetailCharacters />,
+        show: (media.characters?.edges || []).length > 0,
+      },
+      {
+        id: 'streaming-episodes',
+        title: 'Watch',
+        element: <AnimeDetailEpisodes />,
+        show: (media.streamingEpisodes || []).length > 0,
+      },
+    ];
+  }, [media]);
 
   const activeTabIndex = useMemo(() => {
     const tabIndex = tabs.findIndex(({ id }) => id === activeTab);
@@ -43,7 +53,7 @@ const AnimeDetailTabs: FC = () => {
 
   const handleTabsChange = useCallback((index: number) => {
     const tabId = tabs[index].id;
-    setActiveTab(tabId || '');
+    setActiveTab(tabId);
   }, []);
 
   return (
@@ -55,17 +65,18 @@ const AnimeDetailTabs: FC = () => {
       isLazy
     >
       <TabList maxW="full" justifyContent={isMDDown ? 'center' : 'flex-start'}>
-        {tabs.map((tab) => (
-          <Tab key={tab.id}>{tab.title}</Tab>
-        ))}
+        {tabs.map((tab) => tab.show && <Tab key={tab.id}>{tab.title}</Tab>)}
       </TabList>
 
       <TabPanels>
-        {tabs.map((tab) => (
-          <TabPanel key={tab.id} p={0}>
-            {tab.element}
-          </TabPanel>
-        ))}
+        {tabs.map(
+          (tab) =>
+            tab.show && (
+              <TabPanel key={tab.id} p={0}>
+                {tab.element}
+              </TabPanel>
+            ),
+        )}
       </TabPanels>
     </Tabs>
   );

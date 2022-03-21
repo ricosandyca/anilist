@@ -59,7 +59,7 @@ const AnimeCharacterCard: FC<AnimeCharacterCardProps> = ({
             className="media-content-box"
             bg="bgAlpha.600"
             backdropFilter="blur(15px) saturate(2)"
-            p={1}
+            p={2}
             h="44px"
             transitionDuration=".3s"
           >
@@ -75,7 +75,7 @@ const AnimeCharacterCard: FC<AnimeCharacterCardProps> = ({
                 textAlign="center"
                 fontSize="xs"
                 fontWeight="500"
-                noOfLines={2}
+                noOfLines={1}
               >
                 {char?.name?.userPreferred}
               </Heading>
