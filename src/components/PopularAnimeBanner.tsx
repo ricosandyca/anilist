@@ -62,11 +62,11 @@ const PopularAnimeBanner: FC<PopularAnimeBannerProps> = ({
 
       const startDateFormat = format(
         convertFuzzyDateToDate(startDate) ?? new Date(),
-        'MMMM, dd yyyy',
+        'MMMM dd, yyyy',
       );
       const endDateFormat = format(
         convertFuzzyDateToDate(endDate) ?? new Date(),
-        'MMMM, dd yyyy',
+        'MMMM dd, yyyy',
       );
 
       return `${startDateFormat} - ${endDateFormat}`;

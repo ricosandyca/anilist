@@ -18,6 +18,7 @@ import { BiLinkExternal } from 'react-icons/bi';
 
 import AnimeDetailTrailerModal from './AnimeDetailTrailerModal';
 import AnimeDetailTabs from './tabs/AnimeDetailTabs';
+import AnimeDetailList from '~/components/AnimeDetailList';
 import { withContainer } from '~/hoc/with-container';
 import { Media } from '~/types/anilist-graphql';
 import { formatNumber } from '~/utils/number';
@@ -79,6 +80,9 @@ const AnimeDetailContent: FC<AnimeDetailInfoProps> = ({ media }) => {
               Open Site
             </Button>
           </HStack>
+
+          {/* Detail in list in large or higher screen */}
+          {!isMDDown && <AnimeDetailList media={media} />}
         </VStack>
 
         {/* Right content */}
@@ -99,6 +103,9 @@ const AnimeDetailContent: FC<AnimeDetailInfoProps> = ({ media }) => {
           {/* Anime detail tabs */}
           <AnimeDetailTabs media={media} />
         </VStack>
+
+        {/* Detail in list in mobile screen */}
+        {isMDDown && <AnimeDetailList media={media} />}
       </MainStack>
     </Box>
   );

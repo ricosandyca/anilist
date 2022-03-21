@@ -12,7 +12,8 @@ export const MEDIA_ATTR = `
   endDate { year month day }
 `;
 export const MEDIA_DETAIL_ATTR = `
-  id type popularity coverImage { extraLarge color } bannerImage
+  id type popularity coverImage { extraLarge color } bannerImage format
+  episodes duration season seasonYear source studios { edges { node { name } } }
   title { userPreferred } description genres startDate { year month day }
   trailer { id site thumbnail }
   endDate { year month day } status siteUrl characters (sort: ROLE) {
