@@ -62,7 +62,7 @@ const AnimeDetailTabs: FC = () => {
 
       <TabPanels>
         {tabs.map((tab) => (
-          <TabPanel key={tab.id} px={0}>
+          <TabPanel key={tab.id} p={0}>
             {tab.element}
           </TabPanel>
         ))}

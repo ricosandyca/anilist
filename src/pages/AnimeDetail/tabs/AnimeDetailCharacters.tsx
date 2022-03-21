@@ -7,6 +7,7 @@ import { animeState } from '~/store/anime';
 
 const AnimeDetailCharacters: FC = () => {
   const itemsPerRow = useBreakpointValue({ base: 2, md: 3, lg: 4, xl: 5 });
+  const itemsGap = useBreakpointValue({ base: 4, md: 5, lg: 6 });
   const anime = useRecoilValue(animeState);
 
   if (!anime) return null;
@@ -16,8 +17,8 @@ const AnimeDetailCharacters: FC = () => {
     <Grid
       w="full"
       templateColumns={`repeat(${itemsPerRow}, 1fr)`}
-      gap={6}
-      pt={4}
+      gap={itemsGap}
+      pt={itemsGap}
     >
       {anime.characters.edges.map(
         (chara) =>
