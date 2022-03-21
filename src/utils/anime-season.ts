@@ -82,6 +82,9 @@ export function extractSeasonDashYear(seasonDashYear: string) {
   const season = seasonDashYearArr[0].toUpperCase() as MediaSeason;
   const year = +seasonDashYearArr[1];
 
+  // check is valid season
+  if (!isValidSeason(season)) return undefined;
+
   if (!season || !year) return undefined;
   return { season, year };
 }
