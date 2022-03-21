@@ -65,7 +65,14 @@ const AnimeDetailTabs: FC<AnimeDetailTabsProps> = ({ media }) => {
       isLazy
     >
       <TabList maxW="full" justifyContent={isMDDown ? 'center' : 'flex-start'}>
-        {tabs.map((tab) => tab.show && <Tab key={tab.id}>{tab.title}</Tab>)}
+        {tabs.map(
+          (tab) =>
+            tab.show && (
+              <Tab key={tab.id} borderTopRadius="md">
+                {tab.title}
+              </Tab>
+            ),
+        )}
       </TabList>
 
       <TabPanels>
