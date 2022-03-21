@@ -11,10 +11,12 @@ import {
   Button,
   Link,
   useBreakpointValue,
+  Flex,
 } from '@chakra-ui/react';
 import { AiFillHeart } from 'react-icons/ai';
 import { BiLinkExternal } from 'react-icons/bi';
 
+import AnimeDetailTrailerModal from './AnimeDetailTrailerModal';
 import AnimeDetailTabs from './tabs/AnimeDetailTabs';
 import { withContainer } from '~/hoc/with-container';
 import { Media } from '~/types/anilist-graphql';
@@ -81,9 +83,19 @@ const AnimeDetailContent: FC<AnimeDetailInfoProps> = ({ media }) => {
 
         {/* Right content */}
         <VStack align="flex-start" spacing={4} w="full">
+          {/* Trailer video button */}
+          <Flex w="full" justify={isMDDown ? 'center' : 'flex-start'} pb={2}>
+            <AnimeDetailTrailerModal
+              trailer={media.trailer ?? undefined}
+              color={media.coverImage?.color ?? undefined}
+            />
+          </Flex>
+
+          {/* Title and description */}
           <Heading>{media.title?.userPreferred}</Heading>
           <Badge>{media.status?.replace(/_/gi, ' ')}</Badge>
           <Text color="whiteAlpha.700">{normalizedDescription}</Text>
+
           {/* Anime detail tabs */}
           <AnimeDetailTabs />
         </VStack>
