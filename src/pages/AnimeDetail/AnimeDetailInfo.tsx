@@ -82,7 +82,7 @@ const AnimeDetailContent: FC<AnimeDetailInfoProps> = ({ media }) => {
         {/* Right content */}
         <VStack align="flex-start" spacing={4} w="full">
           <Heading>{media.title?.userPreferred}</Heading>
-          <Badge>{media.status}</Badge>
+          <Badge>{media.status?.replace(/_/gi, ' ')}</Badge>
           <Text color="whiteAlpha.700">{normalizedDescription}</Text>
           {/* Anime detail tabs */}
           <AnimeDetailTabs />

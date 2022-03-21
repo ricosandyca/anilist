@@ -22,16 +22,15 @@ const FooterContent: FC = () => {
       fontFamily="heading"
       justifyContent="center"
       color="whiteAlpha.900"
-      spacing={1}
+      spacing={1.5}
     >
-      <Icon as={MdOutlineCode} mx={1} />
+      <Icon as={MdOutlineCode} />
       <Text>with</Text>
-      <Icon color="pink.400" as={AiFillHeart} mx={1} />
+      <Icon color="pink.400" as={AiFillHeart} />
       <Text>by</Text>
       <Link
         color="pink.400"
         target="_blank"
-        mx={1}
         href={`${appConfig.appAuthorURL}`}
         _focus={{
           boxShadow: 'none',

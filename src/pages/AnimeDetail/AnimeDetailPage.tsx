@@ -13,6 +13,7 @@ const AnimeDetailPage: FC = () => {
   const { mediaId } = useParams();
   const { anime, isLoading } = useAnime(+(mediaId ?? ''));
 
+  // TODO: add loading skeleton
   if (isLoading) return <div>Loading</div>;
   if (!anime) return <NotFoundPage />;
 

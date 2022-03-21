@@ -11,6 +11,11 @@ export function useAnime(mediaId: number) {
   const [error, setError] = useState<string | null>(null);
   const [anime, setAnime] = useRecoilState(animeState);
 
+  // show loading on page changed
+  useEffect(() => {
+    setIsLoading(true);
+  }, [mediaId]);
+
   useEffect(() => {
     // get single anime detail
     (async () => {
@@ -32,6 +37,7 @@ export function useAnime(mediaId: number) {
         status: 'error',
         isClosable: true,
         title: error,
+        onCloseComplete: () => setError(null),
       });
   }, [error]);
 

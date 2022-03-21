@@ -17,9 +17,13 @@ export const MEDIA_DETAIL_ATTR = `
   endDate { year month day } status siteUrl characters (sort: ROLE) {
     edges {
       id name role
-      node { id name { userPreferred } image { large } }
+      node { id name { userPreferred } image { large } siteUrl }
     }
   }
+  relations { edges { id relationType node {
+    id type status title { userPreferred } coverImage { large color }
+    startDate { year month day } endDate { year month day }
+  } } }
 `;
 
 export type GetAnimeListPage = {

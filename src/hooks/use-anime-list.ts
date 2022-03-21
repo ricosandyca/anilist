@@ -57,6 +57,7 @@ export function useAnimeList(
         status: 'error',
         isClosable: true,
         title: error,
+        onCloseComplete: () => setError(null),
       });
   }, [error]);
 
