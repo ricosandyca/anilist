@@ -8,12 +8,15 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react';
 import { RiEmotionSadFill } from 'react-icons/ri';
+
 import { withContainer } from '~/hoc/with-container';
+import { useDocumentTitle } from '~/hooks/use-document-title';
 
 const NotFoundPage: FC = () => {
   // responsive breakpoints
   const isSMDown = useBreakpointValue({ base: true, md: false });
   const Wrapper = isSMDown ? VStack : HStack;
+  useDocumentTitle('Page Not Found');
 
   return (
     <Flex

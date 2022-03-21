@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import { Heading, VStack } from '@chakra-ui/react';
 
-import { MediaFormat, MediaSeason } from '~/types/anilist-graphql';
-import PopularAnimeList from './PopularAnimeList';
 import FormatAnimeList from './FormatAnimeList';
+import PopularAnimeList from './PopularAnimeList';
+import { useDocumentTitle } from '~/hooks/use-document-title';
+import { MediaFormat, MediaSeason } from '~/types/anilist-graphql';
+import { capitalizeText } from '~/utils/text';
 
 export type AnimeListContentProps = {
   season: MediaSeason;
@@ -17,6 +19,8 @@ const formatsToShow = [
 ];
 
 const AnimeListContent: FC<AnimeListContentProps> = ({ season, year }) => {
+  useDocumentTitle(`${capitalizeText(season.toLowerCase())} ${year}`);
+
   return (
     <VStack align="flex-start" spacing={12} pb={16} pt={8}>
       {/* Popular anime banner */}

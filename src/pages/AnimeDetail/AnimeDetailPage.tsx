@@ -6,12 +6,14 @@ import AnimeDetailHeader from './AnimeDetailHeader';
 import AnimeDetailInfo from './AnimeDetailInfo';
 import { useAnime } from '~/hooks/use-anime';
 import NotFoundPage from '~/pages/NotFound';
+import { useDocumentTitle } from '~/hooks/use-document-title';
 
 export const IMAGE_HEADER_HEIGHT = '500px';
 
 const AnimeDetailPage: FC = () => {
   const { mediaId } = useParams();
   const { anime, isLoading } = useAnime(+(mediaId ?? ''));
+  useDocumentTitle(anime?.title?.userPreferred);
 
   // TODO: add loading skeleton
   if (isLoading) return <div>Loading</div>;
