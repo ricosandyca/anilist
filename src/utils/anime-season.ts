@@ -32,6 +32,46 @@ export function determineAnimeSeasonByMonth(
 }
 
 /**
+ * Get season main selections
+ * Used in app bar shell
+ *
+ * @returns season selections
+ */
+export function getSeasonSelections() {
+  const d = new Date();
+  const month = d.getMonth();
+  const year = d.getFullYear();
+
+  const season = determineAnimeSeasonByMonth(month);
+  const seasons = [
+    ...seasonOrders.map((season) => ({ season, year: year - 1 })),
+    ...seasonOrders.map((season) => ({ season, year: year })),
+    ...seasonOrders.map((season) => ({ season, year: year + 1 })),
+  ];
+  const seasonIndex = seasons.findIndex(
+    (s) => s.season === season && s.year === year,
+  );
+  const selections = [
+    seasons[seasonIndex - 1],
+    seasons[seasonIndex],
+    seasons[seasonIndex + 1],
+    seasons[seasonIndex + 2],
+  ];
+
+  // sort selections
+  const seasonOrderPriority: { [key in MediaSeason]?: number } =
+    seasonOrders.reduce((acc, val, i) => ({ ...acc, [val]: i }), {});
+  selections.sort((a, b) => {
+    return (
+      (seasonOrderPriority[a.season] || 0) -
+      (seasonOrderPriority[b.season] || 0)
+    );
+  });
+
+  return selections;
+}
+
+/**
  * Check if the given season is valid
  *
  * @param season - string of season to check

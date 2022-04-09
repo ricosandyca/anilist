@@ -14,6 +14,7 @@ import {
   VStack,
   useDisclosure,
   HStack,
+  Text,
 } from '@chakra-ui/react';
 import { RiMenu3Fill, RiCloseFill } from 'react-icons/ri';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -111,9 +112,12 @@ const ShellResponsiveDrawerContent: FC<ShellResponsiveDrawerContentProps> = ({
                 justifyContent="flex-start"
                 px={4}
               >
-                <Heading fontWeight="500" fontSize="md" pl={2}>
-                  {s.text}
-                </Heading>
+                <HStack justify="space-between" w="full">
+                  <Heading fontWeight="500" fontSize="md" pl={2}>
+                    {s.season}
+                  </Heading>
+                  <Text fontSize="x-small">{s.year}</Text>
+                </HStack>
               </Button>
             ))}
           </VStack>
