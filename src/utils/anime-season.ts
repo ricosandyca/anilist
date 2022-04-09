@@ -1,4 +1,4 @@
-import { MediaSeason } from '~/types/anilist-graphql';
+import { MediaFormat, MediaSeason } from '~/types/anilist-graphql';
 
 // month count starts at 0 = january
 export const animeSeasonRangeInMonth = {
@@ -127,4 +127,23 @@ export function extractSeasonDashYear(seasonDashYear: string) {
 
   if (!season || !year) return undefined;
   return { season, year };
+}
+
+/**
+ * Get valid enum of anime formats
+ * eg: movie-tv => [Movie, Tv]
+ *
+ * @param dashedFormat - dashed format
+ * @returns valid enums of media format
+ */
+export function getValidAnimeFormats(dashedFormat: string) {
+  const validFormat: { [key: string]: MediaFormat } = Object.values(
+    MediaFormat,
+  ).reduce((acc, val) => ({ ...acc, [val.toLowerCase()]: val }), {});
+
+  return dashedFormat.split('-').reduce<MediaFormat[]>((acc, val) => {
+    const validEnum = validFormat[val.toLowerCase()];
+    if (!validEnum) return acc;
+    return [...acc, validEnum];
+  }, []);
 }
