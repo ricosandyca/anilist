@@ -3,9 +3,10 @@ import {
   extractSeasonDashYear,
   getSeasonDashYear,
   getSeasonSelections,
+  getValidMediaFormats,
   isValidSeason,
 } from '../anime-season';
-import { MediaSeason } from '~/types/anilist-graphql';
+import { MediaFormat, MediaSeason } from '~/types/anilist-graphql';
 
 describe('determineAnimeSeasonByMonth function testing', () => {
   it('Should return winter season', () => {
@@ -119,5 +120,19 @@ describe('getSeasonSelections function testing', () => {
       { season: MediaSeason.Summer, year: 2022 },
       { season: MediaSeason.Fall, year: 2021 },
     ]);
+  });
+});
+
+describe('getValidAnimeFormats function testing', () => {
+  it('Should return array of enums of media formats', () => {
+    const enumFormats = getValidMediaFormats('movie-tv');
+    expect(enumFormats).toHaveLength(2);
+    expect(enumFormats).toMatchObject([MediaFormat.Movie, MediaFormat.Tv]);
+  });
+
+  it('Should return array of enums of media formats on one of them is invalid', () => {
+    const enumFormats = getValidMediaFormats('special-tav-ona');
+    expect(enumFormats).toHaveLength(2);
+    expect(enumFormats).toMatchObject([MediaFormat.Special, MediaFormat.Ona]);
   });
 });

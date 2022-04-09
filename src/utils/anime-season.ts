@@ -136,7 +136,7 @@ export function extractSeasonDashYear(seasonDashYear: string) {
  * @param dashedFormat - dashed format
  * @returns valid enums of media format
  */
-export function getValidAnimeFormats(dashedFormat: string) {
+export function getValidMediaFormats(dashedFormat: string) {
   const validFormat: { [key: string]: MediaFormat } = Object.values(
     MediaFormat,
   ).reduce((acc, val) => ({ ...acc, [val.toLowerCase()]: val }), {});
