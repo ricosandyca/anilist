@@ -51,13 +51,14 @@ export const GET_ANIME_LIST = (
       query getAnimeList (
         $page: Int, $perPage: Int, $season: MediaSeason, 
         $seasonYear: Int, $sort: MediaSort, $type: MediaType,
-        $formats: [MediaFormat]
+        $formats: [MediaFormat], $excludeGenres: [String]
       ) {
         Page (page: $page, perPage: $perPage) {
           pageInfo { ${PAGE_INFO_ATTR} }
           media (
             season: $season, seasonYear: $seasonYear, 
             sort: [$sort], type: $type, format_in: $formats
+            genre_not_in: $excludeGenres
           ) { ${MEDIA_ATTR} }
         }
       }
@@ -70,6 +71,7 @@ export const GET_ANIME_LIST = (
       sort: mediaFilter.sort,
       type: mediaFilter.type,
       formats: mediaFilter.formats,
+      excludeGenres: ['Hentai'],
     },
   };
 };
