@@ -13,9 +13,14 @@ export type AnimeListContentProps = {
 };
 
 const formatsToShow = [
-  { id: 'movie', title: 'Movie', format: MediaFormat.Movie },
-  { id: 'tv', title: 'TV', format: MediaFormat.Tv },
-  { id: 'tv-short', title: 'TV Short', format: MediaFormat.TvShort },
+  { id: 'movie', title: 'Movie', formats: [MediaFormat.Movie] },
+  { id: 'tv', title: 'TV', formats: [MediaFormat.Tv] },
+  { id: 'tv-short', title: 'TV Short', formats: [MediaFormat.TvShort] },
+  {
+    id: 'ova-ona-special',
+    title: 'OVA / ONA / SPECIAL',
+    formats: [MediaFormat.Ova, MediaFormat.Ona, MediaFormat.Special],
+  },
 ];
 
 const AnimeListContent: FC<AnimeListContentProps> = ({ season, year }) => {
@@ -33,7 +38,7 @@ const AnimeListContent: FC<AnimeListContentProps> = ({ season, year }) => {
           <FormatAnimeList
             season={season}
             seasonYear={year}
-            format={f.format}
+            formats={f.formats}
           />
         </VStack>
       ))}

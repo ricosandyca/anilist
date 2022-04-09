@@ -14,17 +14,17 @@ import { MediaFormat, MediaSeason } from '~/types/anilist-graphql';
 import { createArray } from '~/utils/array';
 
 export type FormatAnimeListProps = {
-  format: MediaFormat;
+  formats: MediaFormat[];
   season: MediaSeason;
   seasonYear: number;
 };
 
-const CARD_LIMIT = 10;
+const CARD_LIMIT = 6;
 const CARD_HEIGHT = '340px';
 const CARD_WIDTH = '250px';
 
 const FormatAnimeList: FC<FormatAnimeListProps> = ({
-  format,
+  formats,
   season,
   seasonYear,
 }) => {
@@ -32,7 +32,7 @@ const FormatAnimeList: FC<FormatAnimeListProps> = ({
   const { isLoading, animes } = useAnimeList(
     season,
     seasonYear,
-    format,
+    formats,
     CARD_LIMIT,
   );
   const spacing = isMDDown ? 4 : 6;

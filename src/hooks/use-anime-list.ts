@@ -14,18 +14,18 @@ import {
 export function useAnimeList(
   season: MediaSeason,
   year: number,
-  format: MediaFormat,
+  formats: MediaFormat[],
   limit: number,
 ) {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [animes, setAnimes] = useRecoilState(animeListState(format));
+  const [animes, setAnimes] = useRecoilState(animeListState(formats.join('-')));
 
   // show loading on page changed
   useEffect(() => {
     setIsLoading(true);
-  }, [season, year, format]);
+  }, [season, year, formats]);
 
   useEffect(() => {
     // get popular anime
@@ -38,7 +38,7 @@ export function useAnimeList(
             seasonYear: year,
             type: MediaType.Anime,
             sort: MediaSort.PopularityDesc,
-            format,
+            formats: formats,
           },
         );
         setAnimes(popularAnimes);
@@ -48,7 +48,7 @@ export function useAnimeList(
         setIsLoading(false);
       }
     })();
-  }, [season, year, limit, format]);
+  }, [season, year, limit, formats]);
 
   useEffect(() => {
     // show a toast on request error

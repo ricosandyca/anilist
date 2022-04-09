@@ -1,6 +1,6 @@
 import { atom, atomFamily } from 'recoil';
 
-import { Media, MediaFormat } from '~/types/anilist-graphql';
+import { Media } from '~/types/anilist-graphql';
 
 export const popularAnimeListState = atom<Media[]>({
   key: 'popularAnimeListState',
@@ -8,7 +8,7 @@ export const popularAnimeListState = atom<Media[]>({
 });
 
 // anime list by its format (eg. TV, Movie, OVA, etc)
-export const animeListState = atomFamily<Media[], MediaFormat>({
+export const animeListState = atomFamily<Media[], string>({
   key: 'animeListState',
   default: [],
 });

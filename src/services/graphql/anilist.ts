@@ -39,7 +39,7 @@ export type GetAnimeListMediaFilter = {
   seasonYear?: number;
   sort?: MediaSort;
   type?: MediaType;
-  format?: MediaFormat;
+  formats?: MediaFormat[];
 };
 
 export const GET_ANIME_LIST = (
@@ -51,13 +51,13 @@ export const GET_ANIME_LIST = (
       query getAnimeList (
         $page: Int, $perPage: Int, $season: MediaSeason, 
         $seasonYear: Int, $sort: MediaSort, $type: MediaType,
-        $format: MediaFormat
+        $formats: [MediaFormat]
       ) {
         Page (page: $page, perPage: $perPage) {
           pageInfo { ${PAGE_INFO_ATTR} }
           media (
             season: $season, seasonYear: $seasonYear, 
-            sort: [$sort], type: $type, format: $format
+            sort: [$sort], type: $type, format_in: $formats
           ) { ${MEDIA_ATTR} }
         }
       }
@@ -69,7 +69,7 @@ export const GET_ANIME_LIST = (
       seasonYear: mediaFilter.seasonYear,
       sort: mediaFilter.sort,
       type: mediaFilter.type,
-      format: mediaFilter.format,
+      formats: mediaFilter.formats,
     },
   };
 };
