@@ -97,7 +97,19 @@ describe('getSeasonSelections function testing', () => {
     expect(selections).toHaveLength(4);
   });
 
-  it('Should return valid seasons and years', () => {
+  it('Should return valid season selections in the same year', () => {
+    const d = new Date(2022, 5, 20);
+    const selections = getSeasonSelections(d);
+
+    expect(selections).toMatchObject([
+      { season: MediaSeason.Winter, year: 2022 },
+      { season: MediaSeason.Spring, year: 2022 },
+      { season: MediaSeason.Summer, year: 2022 },
+      { season: MediaSeason.Fall, year: 2022 },
+    ]);
+  });
+
+  it('Should return valid season selections in different years', () => {
     const d = new Date(2022, 1, 15);
     const selections = getSeasonSelections(d);
 
