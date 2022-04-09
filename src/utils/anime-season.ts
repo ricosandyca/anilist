@@ -35,10 +35,10 @@ export function determineAnimeSeasonByMonth(
  * Get season main selections
  * Used in app bar shell
  *
+ * @param d - date to convert
  * @returns season selections
  */
-export function getSeasonSelections() {
-  const d = new Date();
+export function getSeasonSelections(d = new Date()) {
   const month = d.getMonth();
   const year = d.getFullYear();
 
@@ -93,7 +93,7 @@ export function isValidSeason(
 /**
  * Get season dash year format by the given date
  *
- * @param d - date to conver
+ * @param d - date to convert
  * @param season - season overriding
  * @returns season dash year (eg. winter-2022)
  */

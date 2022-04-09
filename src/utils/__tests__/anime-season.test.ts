@@ -2,6 +2,7 @@ import {
   determineAnimeSeasonByMonth,
   extractSeasonDashYear,
   getSeasonDashYear,
+  getSeasonSelections,
   isValidSeason,
 } from '../anime-season';
 import { MediaSeason } from '~/types/anilist-graphql';
@@ -85,5 +86,26 @@ describe('getSeasonDashYear function testing', () => {
       MediaSeason.Fall,
     );
     expect(seasonDashYear).toMatch(/fall-2022/gi);
+  });
+});
+
+describe('getSeasonSelections function testing', () => {
+  it('Should return valid four season selections', () => {
+    const d = new Date(2022, 1, 15);
+    const selections = getSeasonSelections(d);
+
+    expect(selections).toHaveLength(4);
+  });
+
+  it('Should return valid seasons and years', () => {
+    const d = new Date(2022, 1, 15);
+    const selections = getSeasonSelections(d);
+
+    expect(selections).toMatchObject([
+      { season: MediaSeason.Winter, year: 2022 },
+      { season: MediaSeason.Spring, year: 2022 },
+      { season: MediaSeason.Summer, year: 2022 },
+      { season: MediaSeason.Fall, year: 2021 },
+    ]);
   });
 });
