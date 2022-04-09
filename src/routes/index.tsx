@@ -3,6 +3,7 @@ import { RouteObject, useRoutes } from 'react-router-dom';
 import { withShell } from '~/hoc/with-shell';
 import AnimeDetailPage from '~/pages/AnimeDetail';
 import AnimeListPage from '~/pages/AnimeList';
+import AnimeListByFormat from '~/pages/AnimeListByFormat';
 import MainPage from '~/pages/Main';
 import NotFoundPage from '~/pages/NotFound';
 
@@ -15,6 +16,10 @@ const routes: RouteObject[] = [
   {
     path: '/:seasonDashYear',
     element: <AnimeListPage />,
+  },
+  {
+    path: '/:seasonDashYear/:dashedFormats',
+    element: <AnimeListByFormat />,
   },
   {
     path: '/media/:mediaId',

@@ -21,6 +21,7 @@ export function useAnimeList(
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [animes, setAnimes] = useRecoilState(animeListState(formats.join('-')));
+  const [hasNextPage, setHasNextPage] = useState(false);
 
   // show loading on page changed
   useEffect(() => {
@@ -31,7 +32,7 @@ export function useAnimeList(
     // get popular anime
     (async () => {
       try {
-        const popularAnimes = await getAnimeList(
+        const [popularAnimes, hasNextPage] = await getAnimeList(
           { page: 1, perPage: limit },
           {
             season,
@@ -42,6 +43,7 @@ export function useAnimeList(
           },
         );
         setAnimes(popularAnimes);
+        setHasNextPage(hasNextPage);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -61,5 +63,5 @@ export function useAnimeList(
       });
   }, [error]);
 
-  return { animes, isLoading, error };
+  return { animes, hasNextPage, isLoading, error };
 }

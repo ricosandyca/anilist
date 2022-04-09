@@ -35,7 +35,7 @@ const FormatAnimeList: FC<FormatAnimeListProps> = ({
   seasonYear,
 }) => {
   const isMDDown = useBreakpointValue({ base: true, lg: false });
-  const { isLoading, animes } = useAnimeList(
+  const { isLoading, animes, hasNextPage } = useAnimeList(
     season,
     seasonYear,
     formats,
@@ -54,24 +54,26 @@ const FormatAnimeList: FC<FormatAnimeListProps> = ({
       ))}
 
       {/* Show more button */}
-      <Box h={CARD_HEIGHT} w={`calc(${CARD_WIDTH} / 1.5)`} flexShrink={0}>
-        <Center w="full" h="full">
-          <Tooltip label="Show more">
-            <IconButton
-              aria-label="More"
-              variant="outline"
-              colorScheme="purple"
-              rounded="full"
-              borderWidth="2px"
-              h="48px"
-              w="48px"
-              icon={<Icon as={RiArrowRightSLine} fontSize="3xl" />}
-              as={Link}
-              to={`${formats.join('-').toLowerCase()}`}
-            />
-          </Tooltip>
-        </Center>
-      </Box>
+      {hasNextPage && (
+        <Box h={CARD_HEIGHT} w={`calc(${CARD_WIDTH} / 1.5)`} flexShrink={0}>
+          <Center w="full" h="full">
+            <Tooltip label="Show more">
+              <IconButton
+                aria-label="More"
+                variant="outline"
+                colorScheme="purple"
+                rounded="full"
+                borderWidth="2px"
+                h="48px"
+                w="48px"
+                icon={<Icon as={RiArrowRightSLine} fontSize="3xl" />}
+                as={Link}
+                to={`${formats.join('-').toLowerCase()}`}
+              />
+            </Tooltip>
+          </Center>
+        </Box>
+      )}
     </HStack>
   );
 };

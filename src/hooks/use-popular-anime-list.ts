@@ -27,7 +27,7 @@ export function usePopularAnimeList(
     // get popular anime
     (async () => {
       try {
-        const popularAnimes = await getAnimeList(
+        const [popularAnimes] = await getAnimeList(
           { page: 1, perPage: limit },
           {
             season,

@@ -18,7 +18,10 @@ export async function getAnimeList(
   const res = await axios.post(GQL_ENDPOINT, GET_ANIME_LIST(pageInfo, filter));
 
   if (res.data.errors) throw res.data.errors[0];
-  return res.data.data.Page.media as Media[];
+  return [
+    res.data.data.Page.media,
+    res.data.data.Page.pageInfo.hasNextPage,
+  ] as [Media[], boolean];
 }
 
 export async function getAnime(mediaId: number) {
