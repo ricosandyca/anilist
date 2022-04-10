@@ -25,7 +25,7 @@ export type FormatAnimeListProps = {
   seasonYear: number;
 };
 
-const CARD_LIMIT = 6;
+const CARD_LIMIT = 5;
 const CARD_HEIGHT = '340px';
 const CARD_WIDTH = '250px';
 

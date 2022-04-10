@@ -1,32 +1,38 @@
-import { FC } from 'react';
-import { Flex, Text, VStack, Icon, useBreakpointValue } from '@chakra-ui/react';
-import { RiEmotionLine } from 'react-icons/ri';
+import { FC, useMemo } from 'react';
+import { Box } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
 
+import AnimeGridList from './AnimeGridList';
 import { withContainer } from '~/hoc/with-container';
+import NotFoundPage from '~/pages/NotFound';
+import {
+  extractSeasonDashYear,
+  getValidMediaFormats,
+} from '~/utils/anime-season';
 
-const NotFoundPage: FC = () => {
-  // responsive breakpoints
-  const isSMDown = useBreakpointValue({ base: true, md: false });
+const AnimeListByFormatPage: FC = () => {
+  const { dashedFormats, seasonDashYear } = useParams();
+
+  const formats = useMemo(() => {
+    return getValidMediaFormats(dashedFormats ?? '');
+  }, [dashedFormats]);
+
+  const seasonData = useMemo(() => {
+    return extractSeasonDashYear(seasonDashYear ?? '');
+  }, [seasonDashYear]);
+
+  if (formats.length <= 0 || !seasonData) return <NotFoundPage />;
 
   return (
-    <Flex
-      position="relative"
-      w="full"
-      h={`calc(100vh - 210px)`}
-      alignItems="center"
-      justifyContent="center"
-      color="whiteAlpha.800"
-    >
-      <VStack spacing={3} alignItems="center">
-        <Icon as={RiEmotionLine} fontSize="6xl" color="inherit" />
-        <VStack alignItems={!isSMDown ? 'flex-start' : 'center'} spacing={1}>
-          <Text color="inherit" fontWeight="semibold">
-            Coming soon
-          </Text>
-        </VStack>
-      </VStack>
-    </Flex>
+    <Box py={6}>
+      <AnimeGridList
+        formats={formats}
+        season={seasonData?.season}
+        seasonYear={seasonData?.year}
+        position="relative"
+      />
+    </Box>
   );
 };
 
-export default withContainer(NotFoundPage, true);
+export default withContainer(AnimeListByFormatPage, true);

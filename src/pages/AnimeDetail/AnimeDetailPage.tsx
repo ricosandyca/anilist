@@ -2,8 +2,8 @@ import { FC } from 'react';
 import { Box, Spinner, Center } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 
-import AnimeDetailHeader from './AnimeDetailHeader';
 import AnimeDetailInfo from './AnimeDetailInfo';
+import AnimeGradientBanner from '~/components/AnimeGradientBanner';
 import { useAnime } from '~/hooks/use-anime';
 import NotFoundPage from '~/pages/NotFound';
 import { useDocumentTitle } from '~/hooks/use-document-title';
@@ -21,7 +21,7 @@ const AnimeDetailPage: FC = () => {
 
   return (
     <Box>
-      <AnimeDetailHeader
+      <AnimeGradientBanner
         imageURL={anime.bannerImage ?? anime.coverImage?.extraLarge ?? ''}
       />
       <AnimeDetailInfo media={anime} />

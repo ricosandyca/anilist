@@ -1,15 +1,18 @@
 import { FC } from 'react';
-import { Box, useBreakpointValue } from '@chakra-ui/react';
+import { Box, BoxProps, useBreakpointValue } from '@chakra-ui/react';
 
-export type AnimeDetailHeaderProps = {
+export type AnimeDetailHeaderProps = BoxProps & {
   imageURL: string;
 };
 
-const AnimeDetailContent: FC<AnimeDetailHeaderProps> = ({ imageURL }) => {
+const AnimeGradientBanner: FC<AnimeDetailHeaderProps> = ({
+  imageURL,
+  ...props
+}) => {
   const height = useBreakpointValue({ base: '300px', md: '500px' });
 
   return (
-    <Box h={height} w="full" bg="bg" position="relative">
+    <Box h={height} w="full" bg="bg" position="relative" {...props}>
       <Box
         bgImage={`url('${imageURL}')`}
         bgPosition="center"
@@ -30,4 +33,4 @@ const AnimeDetailContent: FC<AnimeDetailHeaderProps> = ({ imageURL }) => {
   );
 };
 
-export default AnimeDetailContent;
+export default AnimeGradientBanner;
