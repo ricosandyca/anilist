@@ -42,6 +42,77 @@ export type GetAnimeListMediaFilter = {
   formats?: MediaFormat[];
 };
 
+export const GET_SUMMARY_ANIME_LIST = (
+  page: GetAnimeListPage,
+  mediaFilter: Omit<GetAnimeListMediaFilter, 'formats'>,
+) => {
+  return {
+    query: `
+      query getAnimeList (
+        $page: Int, $perPage: Int, $season: MediaSeason, 
+        $seasonYear: Int, $sort: MediaSort, $type: MediaType,
+        $excludeGenres: [String]
+      ) {
+        popularAnimes: Page (page: $page, perPage: $perPage) {
+          pageInfo { ${PAGE_INFO_ATTR} }
+          media (
+            season: $season, seasonYear: $seasonYear, 
+            sort: [$sort], type: $type
+            genre_not_in: $excludeGenres
+          ) { ${MEDIA_ATTR} }
+        }
+
+        movieAnimes: Page (page: $page, perPage: $perPage) {
+          pageInfo { ${PAGE_INFO_ATTR} }
+          media (
+            season: $season, seasonYear: $seasonYear, 
+            sort: [$sort], type: $type, format_in: [${MediaFormat.Movie}]
+            genre_not_in: $excludeGenres
+          ) { ${MEDIA_ATTR} }
+        }
+
+        tvAnimes: Page (page: $page, perPage: $perPage) {
+          pageInfo { ${PAGE_INFO_ATTR} }
+          media (
+            season: $season, seasonYear: $seasonYear, 
+            sort: [$sort], type: $type, format_in: [${MediaFormat.Tv}]
+            genre_not_in: $excludeGenres
+          ) { ${MEDIA_ATTR} }
+        }
+
+        tvShortAnimes: Page (page: $page, perPage: $perPage) {
+          pageInfo { ${PAGE_INFO_ATTR} }
+          media (
+            season: $season, seasonYear: $seasonYear, 
+            sort: [$sort], type: $type, format_in: [${MediaFormat.TvShort}]
+            genre_not_in: $excludeGenres
+          ) { ${MEDIA_ATTR} }
+        }
+
+        specialAnimes: Page (page: $page, perPage: $perPage) {
+          pageInfo { ${PAGE_INFO_ATTR} }
+          media (
+            season: $season, seasonYear: $seasonYear, 
+            sort: [$sort], type: $type, format_in: [${
+              (MediaFormat.Ova, MediaFormat.Ona, MediaFormat.Special)
+            }]
+            genre_not_in: $excludeGenres
+          ) { ${MEDIA_ATTR} }
+        }
+      }
+    `,
+    variables: {
+      page: page.page,
+      perPage: page.perPage,
+      season: mediaFilter.season,
+      seasonYear: mediaFilter.seasonYear,
+      sort: mediaFilter.sort,
+      type: mediaFilter.type,
+      excludeGenres: ['Hentai'],
+    },
+  };
+};
+
 export const GET_ANIME_LIST = (
   page: GetAnimeListPage,
   mediaFilter: GetAnimeListMediaFilter,

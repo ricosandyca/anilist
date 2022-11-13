@@ -15,14 +15,16 @@ import ScrollContainer from 'react-indiana-drag-scroll';
 import { Link } from 'react-router-dom';
 
 import AnimeCard from '~/components/AnimeCard';
-import { useAnimeList } from '~/hooks/use-anime-list';
-import { MediaFormat, MediaSeason } from '~/types/anilist-graphql';
+import { Media, MediaFormat, MediaSeason } from '~/types/anilist-graphql';
 import { createArray } from '~/utils/array';
 
 export type FormatAnimeListProps = {
   formats: MediaFormat[];
   season: MediaSeason;
   seasonYear: number;
+  medias: Media[];
+  isLoading: boolean;
+  hasNextPage: boolean;
 };
 
 const CARD_LIMIT = 5;
@@ -31,23 +33,18 @@ const CARD_WIDTH = '250px';
 
 const FormatAnimeList: FC<FormatAnimeListProps> = ({
   formats,
-  season,
-  seasonYear,
+  medias,
+  isLoading,
+  hasNextPage,
 }) => {
   const isMDDown = useBreakpointValue({ base: true, lg: false });
-  const { isLoading, animes, hasNextPage } = useAnimeList(
-    season,
-    seasonYear,
-    formats,
-    CARD_LIMIT,
-  );
   const spacing = isMDDown ? 4 : 6;
 
   if (isLoading) return <FormatAnimeListLoading spacing={spacing} />;
 
   return (
     <HStack as={ScrollContainer} spacing={spacing} maxWidth="full">
-      {animes.map((media) => (
+      {medias.map((media) => (
         <Box key={media.id} flexShrink={0}>
           <AnimeCard media={media} h={CARD_HEIGHT} w={CARD_WIDTH} />
         </Box>

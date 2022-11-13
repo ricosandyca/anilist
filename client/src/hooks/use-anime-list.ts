@@ -32,7 +32,7 @@ export function useAnimeList(
     // get popular anime
     (async () => {
       try {
-        const [popularAnimes, hasNextPage] = await getAnimeList(
+        const { medias, hasNextPage } = await getAnimeList(
           { page: 1, perPage: limit },
           {
             season,
@@ -42,7 +42,7 @@ export function useAnimeList(
             formats: formats,
           },
         );
-        setAnimes(popularAnimes);
+        setAnimes(medias);
         setHasNextPage(hasNextPage);
       } catch (err: any) {
         setError(err.message);

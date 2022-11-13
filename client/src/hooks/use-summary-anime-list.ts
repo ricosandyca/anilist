@@ -1,22 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useToast } from '@chakra-ui/react';
-import { useRecoilState } from 'recoil';
 
-import { getAnimeList } from '~/services/anilist';
-import { popularAnimeListState } from '~/store/anime';
-import { MediaSeason, MediaType, MediaSort } from '~/types/anilist-graphql';
+import { getSummaryAnimeList } from '~/services/anilist';
+import {
+  MediaSeason,
+  MediaType,
+  MediaSort,
+  Media,
+} from '~/types/anilist-graphql';
 
-export function usePopularAnimeList(
+export function useSummaryAnimeList(
   season: MediaSeason,
   year: number,
-  limit = 5,
+  limit = 7,
 ) {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [popularAnimes, setPopularAnimes] = useRecoilState(
-    popularAnimeListState,
-  );
+  const [summaries, setSummaries] = useState<{
+    [key: string]: { medias: Media[]; hasNextPage: boolean };
+  } | null>(null);
 
   // show loading on page changed
   useEffect(() => {
@@ -27,7 +30,7 @@ export function usePopularAnimeList(
     // get popular anime
     (async () => {
       try {
-        const [popularAnimes] = await getAnimeList(
+        const summaries = await getSummaryAnimeList(
           { page: 1, perPage: limit },
           {
             season,
@@ -36,7 +39,7 @@ export function usePopularAnimeList(
             sort: MediaSort.PopularityDesc,
           },
         );
-        setPopularAnimes(popularAnimes);
+        setSummaries(summaries);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -56,5 +59,5 @@ export function usePopularAnimeList(
       });
   }, [error]);
 
-  return { popularAnimes, isLoading, error };
+  return { summaries, isLoading, error };
 }

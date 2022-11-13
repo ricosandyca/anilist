@@ -6,6 +6,7 @@ import {
   GET_ANIME,
   GetAnimeListPage,
   GetAnimeListMediaFilter,
+  GET_SUMMARY_ANIME_LIST,
 } from '~/services/graphql/anilist';
 import { Media } from '~/types/anilist-graphql';
 
@@ -18,10 +19,45 @@ export async function getAnimeList(
   const res = await axios.post(GQL_ENDPOINT, GET_ANIME_LIST(pageInfo, filter));
 
   if (res.data.errors) throw res.data.errors[0];
-  return [
-    res.data.data.Page.media,
-    res.data.data.Page.pageInfo.hasNextPage,
-  ] as [Media[], boolean];
+  return {
+    medias: res.data.data.Page.media as Media[],
+    hasNextPage: res.data.data.Page.pageInfo.hasNextPage as boolean,
+  };
+}
+
+export async function getSummaryAnimeList(
+  pageInfo: GetAnimeListPage,
+  filter: GetAnimeListMediaFilter,
+) {
+  const res = await axios.post(
+    GQL_ENDPOINT,
+    GET_SUMMARY_ANIME_LIST(pageInfo, filter),
+  );
+
+  if (res.data.errors) throw res.data.errors[0];
+
+  return {
+    popularAnimes: {
+      medias: res.data.data.popularAnimes.media as Media[],
+      hasNextPage: res.data.data.popularAnimes.pageInfo.hasNextPage as boolean,
+    },
+    movieAnimes: {
+      medias: res.data.data.movieAnimes.media as Media[],
+      hasNextPage: res.data.data.movieAnimes.pageInfo.hasNextPage as boolean,
+    },
+    tvAnimes: {
+      medias: res.data.data.tvAnimes.media as Media[],
+      hasNextPage: res.data.data.tvAnimes.pageInfo.hasNextPage as boolean,
+    },
+    tvShortAnimes: {
+      medias: res.data.data.tvShortAnimes.media as Media[],
+      hasNextPage: res.data.data.tvShortAnimes.pageInfo.hasNextPage as boolean,
+    },
+    specialAnimes: {
+      medias: res.data.data.specialAnimes.media as Media[],
+      hasNextPage: res.data.data.specialAnimes.pageInfo.hasNextPage as boolean,
+    },
+  };
 }
 
 export async function getAnime(mediaId: number) {

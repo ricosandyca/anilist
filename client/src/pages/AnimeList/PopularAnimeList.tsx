@@ -3,26 +3,19 @@ import { Skeleton, VStack, Box } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-import { usePopularAnimeList } from '~/hooks/use-popular-anime-list';
-import { MediaSeason } from '~/types/anilist-graphql';
+import { Media } from '~/types/anilist-graphql';
 import PopularAnimeBanner from '~/components/PopularAnimeBanner';
 
 export type PopularAnimeListProps = {
-  season: MediaSeason;
-  year: number;
+  isLoading: boolean;
+  medias: Media[];
 };
 
 const BANNER_HEIGHT = '540px';
 
-const PopularAnimeList: FC<PopularAnimeListProps> = ({ season, year }) => {
-  const { isLoading, popularAnimes, error } = usePopularAnimeList(
-    season,
-    year,
-    5,
-  );
-
+const PopularAnimeList: FC<PopularAnimeListProps> = ({ medias, isLoading }) => {
   if (isLoading) return <PopularAnimeListLoading />;
-  if (error) return null;
+
   return (
     <VStack alignItems="flex-start" w="full" spacing={6}>
       {/* Slideable banner */}
@@ -41,7 +34,7 @@ const PopularAnimeList: FC<PopularAnimeListProps> = ({ season, year }) => {
           useKeyboardArrows
         >
           {/* Popular animes banner */}
-          {popularAnimes.map((media) => (
+          {medias.map((media) => (
             <PopularAnimeBanner
               key={media.id}
               media={media}
